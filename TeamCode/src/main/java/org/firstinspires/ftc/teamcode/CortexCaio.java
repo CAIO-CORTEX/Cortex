@@ -6,29 +6,28 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import javax.microedition.khronos.opengles.GL10;
 
 @TeleOp(name="CortexCaio", group="Linear opMode")
 
 public class CortexCaio extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor FLO = null;
-    private DcMotor FR1 = null;
-    private DcMotor BL2 = null;
-    private DcMotor BR3 = null;
+    private DcMotor FRO = null;
+    private DcMotor BL1 = null;
+    private DcMotor BR2 = null;
+    private DcMotor FL3 = null;
 
     @Override
     public void runOpMode() {
-        FLO = hardwareMap.get(DcMotor.class, "FL0");
-        FR1 = hardwareMap.get(DcMotor.class, "FR1");
-        BL2 = hardwareMap.get(DcMotor.class, "BL2");
-        BR3 = hardwareMap.get(DcMotor.class, "BR3");
+        FRO = hardwareMap.get(DcMotor.class, "FR0");
+        BL1 = hardwareMap.get(DcMotor.class, "BL1");
+        BR2 = hardwareMap.get(DcMotor.class, "BR2");
+        FL3 = hardwareMap.get(DcMotor.class, "FL3");
 
-        FLO.setDirection(DcMotor.Direction.REVERSE);
-        FR1.setDirection(DcMotor.Direction.FORWARD);
-        BL2.setDirection(DcMotor.Direction.REVERSE);
-        BR3.setDirection(DcMotor.Direction.FORWARD);
+        FRO.setDirection(DcMotor.Direction.REVERSE);
+        BL1.setDirection(DcMotor.Direction.FORWARD);
+        BR2.setDirection(DcMotor.Direction.REVERSE);
+        FL3.setDirection(DcMotor.Direction.FORWARD);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -39,7 +38,7 @@ public class CortexCaio extends LinearOpMode {
         while (opModeIsActive()) {
             double max;
 
-            double axial   = -gamepad1.left_stick_y;
+            double axial   =  -gamepad1.left_stick_y;
             double lateral =  gamepad1.left_stick_x;
             double guinada =  gamepad1.right_stick_x;
 
@@ -47,6 +46,7 @@ public class CortexCaio extends LinearOpMode {
             double rightFrontPower  = axial - lateral - guinada;
             double leftBackPower    = axial - lateral + guinada;
             double rightBackPower   = axial + lateral - guinada;
+
 
             max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
             max = Math.max(max, Math.abs(leftBackPower));
@@ -59,10 +59,10 @@ public class CortexCaio extends LinearOpMode {
                 rightBackPower   /= max;
             }
 
-            FLO.setPower(leftFrontPower);
-            FR1.setPower(rightFrontPower);
-            BL2.setPower(leftBackPower);
-            BR3.setPower(rightBackPower);
+            FRO.setPower(leftFrontPower);
+            BL1.setPower(rightFrontPower);
+            BR2.setPower(leftBackPower);
+            FL3.setPower(rightBackPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
