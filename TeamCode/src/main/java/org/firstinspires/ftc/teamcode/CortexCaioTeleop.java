@@ -3,13 +3,12 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@TeleOp(name="CortexCaio", group="Linear opMode")
+@TeleOp(name="CortexCaioTeleop", group="Linear opMode")
 
-public class CortexCaio extends LinearOpMode {
+public class CortexCaioTeleop extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor FLO = null;
