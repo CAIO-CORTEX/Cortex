@@ -12,22 +12,22 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class CortexCaio extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor FRO = null;
-    private DcMotor BL1 = null;
-    private DcMotor BR2 = null;
-    private DcMotor FL3 = null;
+    private DcMotor FLO = null;
+    private DcMotor FR1 = null;
+    private DcMotor BL2 = null;
+    private DcMotor BR3 = null;
 
     @Override
     public void runOpMode() {
-        FRO = hardwareMap.get(DcMotor.class, "FR0");
-        BL1 = hardwareMap.get(DcMotor.class, "BL1");
-        BR2 = hardwareMap.get(DcMotor.class, "BR2");
-        FL3 = hardwareMap.get(DcMotor.class, "FL3");
+        FLO = hardwareMap.get(DcMotor.class, "FL0");
+        FR1 = hardwareMap.get(DcMotor.class, "FR1");
+        BL2 = hardwareMap.get(DcMotor.class, "BL2");
+        BR3 = hardwareMap.get(DcMotor.class, "BR3");
 
-        FRO.setDirection(DcMotor.Direction.REVERSE);
-        BL1.setDirection(DcMotor.Direction.FORWARD);
-        BR2.setDirection(DcMotor.Direction.REVERSE);
-        FL3.setDirection(DcMotor.Direction.FORWARD);
+        FLO.setDirection(DcMotor.Direction.FORWARD);
+        FR1.setDirection(DcMotor.Direction.REVERSE);
+        BL2.setDirection(DcMotor.Direction.FORWARD);
+        BR3.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -59,10 +59,10 @@ public class CortexCaio extends LinearOpMode {
                 rightBackPower   /= max;
             }
 
-            FRO.setPower(leftFrontPower);
-            BL1.setPower(rightFrontPower);
-            BR2.setPower(leftBackPower);
-            FL3.setPower(rightBackPower);
+            FLO.setPower(leftFrontPower);
+            FR1.setPower(rightFrontPower);
+            BL2.setPower(leftBackPower);
+            BR3.setPower(rightBackPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
