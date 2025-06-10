@@ -16,55 +16,66 @@ public class CortexCaioAuto extends LinearOpMode {
     private DcMotor BL2 = null;
     private DcMotor BR3 = null;
 
+    static final double COUNTS_PER_MOTOR_REV = 1440;
+
+    static final double DRIVE_GEAR_REDUCTION = 20.0;
+
+    static final double WHEEL_DIAMETER_INCHES = 3.8;
+
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+
+    static final double DRIVE_SPEED = 0.6;
+    static final double TURN_SPEED = 0.5;
+
+
     @Override
     public void runOpMode() {
-        FL0 = hardwareMap.get(DcMotor.class,"FL0");
-        FR1 = hardwareMap.get(DcMotor.class,"FR1");
-        BL2 = hardwareMap.get(DcMotor.class,"BL2");
-        BR3 = hardwareMap.get(DcMotor.class,"BR3");
+        FL0 = hardwareMap.get(DcMotor.class, "FL0");
+        FR1 = hardwareMap.get(DcMotor.class, "FR1");
+        BL2 = hardwareMap.get(DcMotor.class, "BL2");
+        BR3 = hardwareMap.get(DcMotor.class, "BR3");
 
         FL0.setDirection(DcMotor.Direction.FORWARD);
         FR1.setDirection(DcMotor.Direction.REVERSE);
         BL2.setDirection(DcMotor.Direction.FORWARD);
         BR3.setDirection(DcMotor.Direction.REVERSE);
 
-        telemetry.addData("Status", "Initialized");
+        FL0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FR1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BL2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BR3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        FL0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        FR1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        BL2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        BR3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        telemetry.addData("Starting at", "%7d :%7d",
+                FL0.getCurrentPosition(),
+                FR1.getCurrentPosition(),
+                BL2.getCurrentPosition(),
+                BR3.getCurrentPosition());
         telemetry.update();
 
         waitForStart();
 
-        while (opModeIsActive()) {
 
-            FL0.setPower(1);
-            FR1.setPower(1);
-            BL2.setPower(1);
-            BR3.setPower(1);
-            sleep(400);
-            FL0.setPower(1);
-            FR1.setPower(-1);
-            BL2.setPower(1);
-            BR3.setPower(-1);
-            sleep(350);
-            FL0.setPower(1);
-            FR1.setPower(1);
-            BL2.setPower(1);
-            BR3.setPower(1);
-            sleep(350);
-            FL0.setPower(-1);
-            FR1.setPower(1);
-            BL2.setPower(-1);
-            BR3.setPower(1);
-            sleep(350);
-            FL0.setPower(1);
-            FR1.setPower(1);
-            BL2.setPower(1);
-            BR3.setPower(1);
-            sleep(900);
-            FL0.setPower(0);
-            FR1.setPower(0);
-            BL2.setPower(0);
-            BR3.setPower(0);
-            sleep(100000);
-        }
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
+        sleep(1000);
+    }
+
+    public void encoderDrive(double speed,
+                             double FL0Inches, double FR1Inches, double BL2Inches, double BR3Inches,
+                             double timeoutS) {
+        int newFL0Target;
+        int newFR1Target;
+        int newBL2Target;
+        int newBR3Target;
+
+        if (opModeIsActive()) {
+
+
+
     }
 }
