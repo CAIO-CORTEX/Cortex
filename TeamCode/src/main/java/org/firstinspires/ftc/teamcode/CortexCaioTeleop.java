@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -16,6 +17,8 @@ public class CortexCaioTeleop extends LinearOpMode {
     private DcMotor FR1 = null;
     private DcMotor BL2 = null;
     private DcMotor BR3 = null;
+    private DcMotor AF0 = null;
+    private DcMotor AU1 = null;
 
     @Override
     public void runOpMode() {
@@ -23,11 +26,15 @@ public class CortexCaioTeleop extends LinearOpMode {
         FR1 = hardwareMap.get(DcMotor.class, "FR1");
         BL2 = hardwareMap.get(DcMotor.class, "BL2");
         BR3 = hardwareMap.get(DcMotor.class, "BR3");
+        AF0 = hardwareMap.get(DcMotor.class, "AF0");
+        AU1 = hardwareMap.get(DcMotor.class, "AU1");
 
         FLO.setDirection(DcMotor.Direction.FORWARD);
         FR1.setDirection(DcMotor.Direction.REVERSE);
         BL2.setDirection(DcMotor.Direction.FORWARD);
         BR3.setDirection(DcMotor.Direction.REVERSE);
+        AF0.setDirection(DcMotor.Direction.FORWARD);
+        AU1.setDirection(DcMotor.Direction.FORWARD);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -46,6 +53,17 @@ public class CortexCaioTeleop extends LinearOpMode {
             double rightFrontPower  = axial - lateral - guinada;
             double leftBackPower    = axial - lateral + guinada;
             double rightBackPower   = axial + lateral - guinada;
+
+            if (gamepad1.right_bumper) {
+                AF0.setPower(1);
+                sleep(100);
+                AF0.setPower(0);
+            }
+            if (gamepad1.left_bumper) {
+                AF0.setPower(-1);
+                sleep(100);
+                AF0.setPower(0);
+            }
 
 
             max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
