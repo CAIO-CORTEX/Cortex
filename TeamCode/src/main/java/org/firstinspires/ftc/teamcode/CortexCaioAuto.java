@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="CortexCaioAuto", group="Linear opMode")
@@ -22,10 +23,10 @@ public class CortexCaioAuto extends LinearOpMode {
 
     static final double WHEEL_DIAMETER_INCHES = 3.78;
 
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
 
-    static final double DRIVE_SPEED = 0.6;
-    static final double TURN_SPEED = 0.5;
+    static final double DRIVE_SPEED = 0.8;
+    static final double TURN_SPEED = 0.7;
 
 
     @Override
@@ -37,8 +38,8 @@ public class CortexCaioAuto extends LinearOpMode {
 
         FL0.setDirection(DcMotor.Direction.FORWARD);
         FR1.setDirection(DcMotor.Direction.REVERSE);
-        BL2.setDirection(DcMotor.Direction.FORWARD);
-        BR3.setDirection(DcMotor.Direction.REVERSE);
+        BL2.setDirection(DcMotor.Direction.REVERSE);
+        BR3.setDirection(DcMotor.Direction.FORWARD);
 
         FL0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FR1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -59,9 +60,10 @@ public class CortexCaioAuto extends LinearOpMode {
 
         waitForStart();
         //COMEÇAR AQUI
-        encoderDrive(DRIVE_SPEED, 20,20,20,20,5.0);
-        encoderDrive(DRIVE_SPEED,-20,-20,-20,-20,5.0);
-        encoderDrive(TURN_SPEED,20,-20,20,-20,5.0);
+        encoderDrive(DRIVE_SPEED, 50,50,50,50,5);
+        encoderDrive(DRIVE_SPEED,-30,-30,-30,-30,5);
+        encoderDrive(TURN_SPEED,20,-20,20,-20,5);
+        encoderDrive(TURN_SPEED,-20,20,-20,20,5);
 
 
         telemetry.addData("Path", "Complete");
@@ -70,26 +72,26 @@ public class CortexCaioAuto extends LinearOpMode {
     }
 
     public void encoderDrive(double speed,
-                             double FL0Inches,
-                             double FR1Inches,
-                             double BL2Inches,
-                             double BR3Inches,
+                             double FLInches,
+                             double FRInches,
+                             double BLInches,
+                             double BRInches,
                              double timeoutS) {
-        int newFL0Target;
-        int newFR1Target;
-        int newBL2Target;
-        int newBR3Target;
+        int newFLTarget;
+        int newFRTarget;
+        int newBLTarget;
+        int newBRTarget;
 
         if (opModeIsActive()) {
 
-            newFL0Target = FL0.getCurrentPosition() + (int)(FL0Inches * COUNTS_PER_INCH);
-            newFR1Target = FR1.getCurrentPosition() + (int)(FR1Inches * COUNTS_PER_INCH);
-            newBL2Target = BL2.getCurrentPosition() + (int)(BL2Inches * COUNTS_PER_INCH);
-            newBR3Target = BR3.getCurrentPosition() + (int)(BR3Inches * COUNTS_PER_INCH);
-            FL0.setTargetPosition(newFL0Target);
-            FR1.setTargetPosition(newFR1Target);
-            BL2.setTargetPosition(newBL2Target);
-            BR3.setTargetPosition(newBR3Target);
+            newFLTarget = FL0.getCurrentPosition() + (int)(FLInches * COUNTS_PER_INCH);
+            newFRTarget = FR1.getCurrentPosition() + (int)(FRInches * COUNTS_PER_INCH);
+            newBLTarget = BL2.getCurrentPosition() + (int)(BLInches * COUNTS_PER_INCH);
+            newBRTarget = BR3.getCurrentPosition() + (int)(BRInches * COUNTS_PER_INCH);
+            FL0.setTargetPosition(newFLTarget);
+            FR1.setTargetPosition(newFRTarget);
+            BL2.setTargetPosition(newBLTarget);
+            BR3.setTargetPosition(newBRTarget);
 
             FL0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             FR1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -107,24 +109,23 @@ public class CortexCaioAuto extends LinearOpMode {
                     (FL0.isBusy() && FR1.isBusy() && BL2.isBusy() && BR3.isBusy())) {
 
                 telemetry.addData("STATUS", "Run time" + runtime.toString());
-                telemetry.addData("Running to", "FL:%7d FR:%7d BL:%7d BR:%7d", newFL0Target, newFR1Target, newBL2Target, newBR3Target);
+                telemetry.addData("Running to", "FL:%7d FR:%7d BL:%7d BR:%7d", newFLTarget, newFRTarget, newBLTarget, newBRTarget);
                 telemetry.addData("Currently at", " FL:%7d FR:%7d BL:%7d BR:%7d",
-                                            FL0.getCurrentPosition(), FR1.getCurrentPosition(), BL2.getCurrentPosition(), BR3.getCurrentPosition());
+                        FL0.getCurrentPosition(), FR1.getCurrentPosition(), BL2.getCurrentPosition(), BR3.getCurrentPosition());
                 telemetry.update();
-
-                FL0.setPower(0);
-                FR1.setPower(0);
-                BL2.setPower(0);
-                BR3.setPower(0);
-
-                FL0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                FR1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                BL2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                BR3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-                sleep(250);
             }
+
+            FL0.setPower(0);
+            FR1.setPower(0);
+            BL2.setPower(0);
+            BR3.setPower(0);
+
+            FL0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            FR1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            BL2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            BR3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            sleep(250);
+
 
         }
     }

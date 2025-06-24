@@ -31,8 +31,8 @@ public class CortexCaioTeleop extends LinearOpMode {
 
         FLO.setDirection(DcMotor.Direction.FORWARD);
         FR1.setDirection(DcMotor.Direction.REVERSE);
-        BL2.setDirection(DcMotor.Direction.FORWARD);
-        BR3.setDirection(DcMotor.Direction.REVERSE);
+        BL2.setDirection(DcMotor.Direction.REVERSE);
+        BR3.setDirection(DcMotor.Direction.FORWARD);
         AF0.setDirection(DcMotor.Direction.FORWARD);
         AU1.setDirection(DcMotor.Direction.FORWARD);
 
@@ -54,17 +54,6 @@ public class CortexCaioTeleop extends LinearOpMode {
             double leftBackPower    = axial - lateral + guinada;
             double rightBackPower   = axial + lateral - guinada;
 
-            if (gamepad1.right_bumper) {
-                AF0.setPower(1);
-                sleep(100);
-                AF0.setPower(0);
-            }
-            if (gamepad1.left_bumper) {
-                AF0.setPower(-1);
-                sleep(100);
-                AF0.setPower(0);
-            }
-
 
             max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
             max = Math.max(max, Math.abs(leftBackPower));
@@ -81,6 +70,27 @@ public class CortexCaioTeleop extends LinearOpMode {
             FR1.setPower(rightFrontPower);
             BL2.setPower(leftBackPower);
             BR3.setPower(rightBackPower);
+
+            if (gamepad1.right_bumper) {
+                AF0.setPower(1);
+                sleep(100);
+                AF0.setPower(0);
+            }
+            if (gamepad1.left_bumper) {
+                AF0.setPower(-1);
+                sleep(100);
+                AF0.setPower(0);
+            }
+            if (gamepad1.x) {
+                AU1.setPower(1);
+                sleep(100);
+                AU1.setPower(0);
+            }
+            if (gamepad1.a){
+                AU1.setPower(-1);
+                sleep(100);
+                AU1.setPower(0);
+            }
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
