@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="CortexCaioAuto", group="Linear opMode")
 
-public class CortexCaioAuto extends LinearOpMode {
+public class CortexCaioAuto extends LinearOpMode  {
 
     private DcMotor FL0 = null;
     private DcMotor FR1 = null;

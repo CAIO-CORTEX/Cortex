@@ -9,8 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="CortexCaioTeleop", group="Linear opMode")
 
-public class CortexCaioTeleop extends LinearOpMode {
-
+public class CortexCaioTeleop extends LinearOpMode  {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor FLO = null;
