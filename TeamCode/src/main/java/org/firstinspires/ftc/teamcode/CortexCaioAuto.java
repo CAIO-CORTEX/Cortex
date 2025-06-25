@@ -38,13 +38,14 @@ public class CortexCaioAuto extends LinearOpMode {
 
         FL0.setDirection(DcMotor.Direction.FORWARD);
         FR1.setDirection(DcMotor.Direction.REVERSE);
-        BL2.setDirection(DcMotor.Direction.REVERSE);
-        BR3.setDirection(DcMotor.Direction.FORWARD);
+        BL2.setDirection(DcMotor.Direction.FORWARD);
+        BR3.setDirection(DcMotor.Direction.REVERSE);
 
         FL0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FR1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BL2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BR3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         FL0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         FR1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -63,8 +64,7 @@ public class CortexCaioAuto extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 50,50,50,50,5);
         encoderDrive(DRIVE_SPEED,-30,-30,-30,-30,5);
         encoderDrive(TURN_SPEED,20,-20,20,-20,5);
-        encoderDrive(TURN_SPEED,-20,20,-20,20,5);
-
+        encoderDrive(DRIVE_SPEED,-20,20,20,-20,5);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

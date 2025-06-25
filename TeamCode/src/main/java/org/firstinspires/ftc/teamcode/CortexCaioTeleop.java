@@ -17,8 +17,8 @@ public class CortexCaioTeleop extends LinearOpMode {
     private DcMotor FR1 = null;
     private DcMotor BL2 = null;
     private DcMotor BR3 = null;
-    private DcMotor AF0 = null;
-    private DcMotor AU1 = null;
+    private DcMotor RC1 = null;
+    private DcMotor BH0 = null;
 
     @Override
     public void runOpMode() {
@@ -26,15 +26,14 @@ public class CortexCaioTeleop extends LinearOpMode {
         FR1 = hardwareMap.get(DcMotor.class, "FR1");
         BL2 = hardwareMap.get(DcMotor.class, "BL2");
         BR3 = hardwareMap.get(DcMotor.class, "BR3");
-        AF0 = hardwareMap.get(DcMotor.class, "AF0");
-        AU1 = hardwareMap.get(DcMotor.class, "AU1");
 
         FLO.setDirection(DcMotor.Direction.FORWARD);
         FR1.setDirection(DcMotor.Direction.REVERSE);
-        BL2.setDirection(DcMotor.Direction.REVERSE);
-        BR3.setDirection(DcMotor.Direction.FORWARD);
-        AF0.setDirection(DcMotor.Direction.FORWARD);
-        AU1.setDirection(DcMotor.Direction.FORWARD);
+        BL2.setDirection(DcMotor.Direction.FORWARD);
+        BR3.setDirection(DcMotor.Direction.REVERSE);
+
+        RC1 = hardwareMap.get(DcMotor.class, "RC1");
+        BH0 = hardwareMap.get(DcMotor.class, "BH0");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -72,25 +71,17 @@ public class CortexCaioTeleop extends LinearOpMode {
             BR3.setPower(rightBackPower);
 
             if (gamepad1.right_bumper) {
-                AF0.setPower(1);
+                RC1.setPower(-1);
                 sleep(100);
-                AF0.setPower(0);
+                RC1.setPower(0);
             }
             if (gamepad1.left_bumper) {
-                AF0.setPower(-1);
+                RC1.setPower(1);
                 sleep(100);
-                AF0.setPower(0);
+                RC1.setPower(0);
             }
-            if (gamepad1.x) {
-                AU1.setPower(1);
-                sleep(100);
-                AU1.setPower(0);
-            }
-            if (gamepad1.a){
-                AU1.setPower(-1);
-                sleep(100);
-                AU1.setPower(0);
-            }
+
+            BH0.setPower(-gamepad1.right_stick_y);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
