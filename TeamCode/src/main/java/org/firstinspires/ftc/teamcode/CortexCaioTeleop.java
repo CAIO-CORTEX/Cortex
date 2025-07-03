@@ -11,42 +11,24 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class CortexCaioTeleop extends LinearOpMode  {
 
-    //MOVEMENT
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor FLO = null;
+    private DcMotor FL0 = null;
     private DcMotor FR1 = null;
     private DcMotor BL2 = null;
     private DcMotor BR3 = null;
 
 
-    //ODOMETRY
-    private DcMotor LO1 = null;
-    private DcMotor CO2 = null;
-    private DcMotor RO3 = null;
-
-
     @Override
     public void runOpMode() {
-        FLO = hardwareMap.get(DcMotor.class, "FL0");
+        FL0 = hardwareMap.get(DcMotor.class, "FL0");
         FR1 = hardwareMap.get(DcMotor.class, "FR1");
         BL2 = hardwareMap.get(DcMotor.class, "BL2");
         BR3 = hardwareMap.get(DcMotor.class, "BR3");
-        LO1 = hardwareMap.get(DcMotor.class, "LO1");
-        CO2 = hardwareMap.get(DcMotor.class, "CO2");
-        RO3 = hardwareMap.get(DcMotor.class, "RO3");
 
-        FLO.setDirection(DcMotor.Direction.FORWARD);
+        FL0.setDirection(DcMotor.Direction.FORWARD);
         FR1.setDirection(DcMotor.Direction.REVERSE);
         BL2.setDirection(DcMotor.Direction.FORWARD);
         BR3.setDirection(DcMotor.Direction.REVERSE);
-
-        LO1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        CO2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RO3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        LO1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        CO2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        RO3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -78,7 +60,7 @@ public class CortexCaioTeleop extends LinearOpMode  {
                 rightBackPower   /= max;
             }
 
-            FLO.setPower(leftFrontPower);
+            FL0.setPower(leftFrontPower);
             FR1.setPower(rightFrontPower);
             BL2.setPower(leftBackPower);
             BR3.setPower(rightBackPower);
