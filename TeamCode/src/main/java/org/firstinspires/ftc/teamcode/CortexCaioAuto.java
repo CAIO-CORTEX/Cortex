@@ -21,9 +21,9 @@ public class CortexCaioAuto extends LinearOpMode  {
 
     static final double DRIVE_GEAR_REDUCTION = 20.0;
 
-    static final double WHEEL_DIAMETER_INCHES = 3.78;
+    static final double WHEEL_DIAMETER_CM = 9.60;
 
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_CM * 3.1415);
 
     static final double DRIVE_SPEED = 0.8;
     static final double TURN_SPEED = 0.7;
@@ -61,10 +61,8 @@ public class CortexCaioAuto extends LinearOpMode  {
 
         waitForStart();
         //COMEÇAR AQUI
-        encoderDrive(DRIVE_SPEED, 50,50,50,50,5);
-        encoderDrive(DRIVE_SPEED,-30,-30,-30,-30,5);
-        encoderDrive(TURN_SPEED,20,-20,20,-20,5);
-        encoderDrive(DRIVE_SPEED,-20,20,20,-20,5);
+        encoderDrive(DRIVE_SPEED, 0.56,0.56,0.56,0.56,5);
+
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
