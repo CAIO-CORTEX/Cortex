@@ -61,7 +61,7 @@ public class CortexCaioAuto extends LinearOpMode  {
 
         waitForStart();
         //COMEÇAR AQUI
-        encoderDrive(DRIVE_SPEED, 0.56,0.56,0.56,0.56,5);
+        encoderDrive(DRIVE_SPEED, 10,10,10,10,5);
 
 
         telemetry.addData("Path", "Complete");
