@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name="CortexCaioOdometria")
 public class CortexCaioOdometria extends LinearOpMode {
     //encoders de odometria
+    //CO2✅,
     DcMotor RO1, CO2, LO3;
     // POSIÇÃO 0
     double x = 0, y = 0, angulo = 0;
@@ -17,9 +18,9 @@ public class CortexCaioOdometria extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        RO1 = hardwareMap.dcMotor.get("LO1");
+        RO1 = hardwareMap.dcMotor.get("RO1");
         CO2 = hardwareMap.dcMotor.get("CO2");
-        LO3 = hardwareMap.dcMotor.get("RO3");
+        LO3 = hardwareMap.dcMotor.get("LO3");
 
         resetEncoders();
 
@@ -37,9 +38,9 @@ public class CortexCaioOdometria extends LinearOpMode {
             telemetry.addData("Angulo (deg)", "%.2f", Math.toDegrees(angulo));
             telemetry.update();
 
-            telemetry.addData("LO3 TICKS","%.2f",LO3.getCurrentPosition());
-            telemetry.addData("CO2 TICKS","%.2f",CO2.getCurrentPosition());
-            telemetry.addData("RO1 TICKS","%.2f",RO1.getCurrentPosition());
+            telemetry.addData("LO3 TICKS",LO3.getCurrentPosition());
+            telemetry.addData("CO2 TICKS",CO2.getCurrentPosition());
+            telemetry.addData("RO1 TICKS",RO1.getCurrentPosition());
 
             idle();  // cede ciclos para o sistema, ajudando o telemetry :contentReference[oaicite:1]{index=1}
         }
@@ -66,13 +67,13 @@ public class CortexCaioOdometria extends LinearOpMode {
         prevLo = Lo; prevRo = Ro; prevCo = Co;
 
         double deltaAng = (Rvo - Lvo) / (COUNTS_PER_CM * ROBOT_WIDTH_CM);
-        double forward = (Lvo + Rvo) / 2.0 / COUNTS_PER_CM;
+        double forward = (Lvo + Rvo) / 2.0;
         double strafe = (Cho - deltaAng * HORIZONTAL_OFFSET_CM) / COUNTS_PER_CM;
 
         double oldAng = angulo;
         angulo += deltaAng;
 
-        x += forward * Math.cos(oldAng) - strafe * Math.sin(oldAng);
-        y += forward * Math.sin(oldAng) + strafe * Math.cos(oldAng);
+        x += forward * Math.cos(oldAng) - strafe * Math.cos(oldAng);
+        y += forward * Math.sin(oldAng) + strafe * Math.sin(oldAng);
     }
 }
